@@ -53,4 +53,14 @@ public record ShopConfig(
         config.set("entries", entryConfigs);
         return config;
     }
+
+    public Live toLiveShop() {
+        List<ShopEntry.Live> liveEntries = this.entries.stream()
+                .map(ShopEntry::toLiveShopEntry)
+                .toList();
+        return new Live(this.shopId, this.shopName, liveEntries);
+    }
+
+    public record Live(String shopId, String shopName, List<ShopEntry.Live> entries) {
+    }
 }

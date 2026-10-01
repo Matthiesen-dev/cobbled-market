@@ -22,14 +22,15 @@ public final class CobbledMarketConfig {
         PERMISSIONS_SPEC = permissionsSpecPair.getRight();
     }
 
-    private static List<ShopConfig> cachedShopConfigs = null;
+    private static List<ShopConfig.Live> cachedShopConfigs = null;
 
-    public static List<ShopConfig> getShopConfigs() {
+    public static List<ShopConfig.Live> getShopConfigs() {
         if (cachedShopConfigs != null) {
             return cachedShopConfigs;
         }
         cachedShopConfigs = SERVER_CONFIG.shopConfigs.get().stream()
                 .map(ShopConfig::deserialize)
+                .map(ShopConfig::toLiveShop)
                 .toList();
         return cachedShopConfigs;
     }
@@ -37,6 +38,7 @@ public final class CobbledMarketConfig {
     public static void reloadCachedShopConfigs() {
         cachedShopConfigs = SERVER_CONFIG.shopConfigs.get().stream()
                 .map(ShopConfig::deserialize)
+                .map(ShopConfig::toLiveShop)
                 .toList();
     }
 }

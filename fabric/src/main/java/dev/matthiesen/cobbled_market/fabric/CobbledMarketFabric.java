@@ -4,10 +4,11 @@ import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import net.fabricmc.api.ModInitializer;
 
 public final class CobbledMarketFabric implements ModInitializer {
+    public static final CobbledMarketCommon INSTANCE = CobbledMarketCommon.INSTANCE;
+
     @Override
     public void onInitialize() {
-        var instance = CobbledMarketCommon.INSTANCE;
-        instance.createInfoLog("Loading for Fabric Mod Loader");
-        instance.initialize();
+        INSTANCE.createInfoLog("Loading for Fabric Mod Loader");
+        INSTANCE.initialize();
     }
 }

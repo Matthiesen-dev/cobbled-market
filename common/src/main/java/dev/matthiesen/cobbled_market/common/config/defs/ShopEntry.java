@@ -48,11 +48,11 @@ public record ShopEntry(String itemId, int quantity, int price) {
         return config;
     }
 
-    public LiveShopEntry getLiveShopEntry() {
-        return new LiveShopEntry(ItemDecoder.stringToItem(this.itemId, Items.AIR), this.quantity, this.price);
+    public Live toLiveShopEntry() {
+        return new Live(ItemDecoder.stringToItem(this.itemId, Items.AIR), this.quantity, this.price);
     }
 
-    public record LiveShopEntry(Item item, int quantity, int price) {
+    public record Live(Item item, int quantity, int price) {
         public boolean purchase(ServerPlayer player) {
             return false; // TODO: Implement purchase logic
         }
