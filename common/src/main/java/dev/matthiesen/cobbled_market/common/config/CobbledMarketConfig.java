@@ -1,0 +1,42 @@
+package dev.matthiesen.cobbled_market.common.config;
+
+import dev.matthiesen.cobbled_market.common.config.defs.ShopConfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.List;
+
+public final class CobbledMarketConfig {
+    public static final ServerConfig SERVER_CONFIG;
+    public static final ModConfigSpec SERVER_SPEC;
+    public static final PermissionsConfig PERMISSIONS_CONFIG;
+    public static final ModConfigSpec PERMISSIONS_SPEC;
+
+    static {
+        Pair<ServerConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(ServerConfig::new);
+        SERVER_CONFIG = specPair.getLeft();
+        SERVER_SPEC = specPair.getRight();
+
+        Pair<PermissionsConfig, ModConfigSpec> permissionsSpecPair = new ModConfigSpec.Builder().configure(PermissionsConfig::new);
+        PERMISSIONS_CONFIG = permissionsSpecPair.getLeft();
+        PERMISSIONS_SPEC = permissionsSpecPair.getRight();
+    }
+
+    private static List<ShopConfig> cachedShopConfigs = null;
+
+    public static List<ShopConfig> getShopConfigs() {
+        if (cachedShopConfigs != null) {
+            return cachedShopConfigs;
+        }
+        cachedShopConfigs = SERVER_CONFIG.shopConfigs.get().stream()
+                .map(ShopConfig::deserialize)
+                .toList();
+        return cachedShopConfigs;
+    }
+
+    public static void reloadCachedShopConfigs() {
+        cachedShopConfigs = SERVER_CONFIG.shopConfigs.get().stream()
+                .map(ShopConfig::deserialize)
+                .toList();
+    }
+}
