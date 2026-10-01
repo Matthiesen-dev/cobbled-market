@@ -41,4 +41,11 @@ public final class CobbledMarketConfig {
                 .map(ShopConfig::toLiveShop)
                 .toList();
     }
+
+    public static ShopConfig.Live getShop(String shopId) {
+        return getShopConfigs().stream()
+                .filter(shopConfig -> shopConfig.shopId().equals(shopId))
+                .findFirst()
+                .orElse(null);
+    }
 }
