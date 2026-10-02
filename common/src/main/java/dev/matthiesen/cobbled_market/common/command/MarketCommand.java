@@ -62,7 +62,7 @@ public final class MarketCommand implements CoreCommand {
         CobbledMarketConfig.reloadCachedShopConfigs();
         int count = CobbledMarketConfig.getShopConfigs().size();
         String messageFormat = CobbledMarketConfig.SERVER_CONFIG.messages_reloadConfig.get();
-        context.getSource().sendSuccess(() -> Component.literal(String.format(messageFormat, count)), true);
+        context.getSource().sendSystemMessage(Component.literal(String.format(messageFormat, count)).withStyle(net.minecraft.ChatFormatting.GREEN));
         return 1;
     }
 }
