@@ -28,5 +28,11 @@
     "matthiesen_core": ">=1.2.7 <2.0.0",
     "gooeylibs": ">=3.1.1 <4.0.0",
     "forgeconfigapiport": ">=21.1.6 <22.0.0"
+  },
+  "recommends": {
+    "impactor": ">=5.3.5+1.21.1 <6.0.0"
+  },
+  "suggests": {
+    "cobbledollars": ">=2.0.0+Beta-6.1+1.21.1 <3.0.0"
   }
 }
