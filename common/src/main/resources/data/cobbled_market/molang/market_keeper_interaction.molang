@@ -1,1 +1,1 @@
-c.player.market.open(q.npc.config.shop_id);
+q.player.market.open(q.npc.config.shop_id);
