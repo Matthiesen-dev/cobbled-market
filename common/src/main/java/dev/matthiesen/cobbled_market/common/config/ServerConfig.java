@@ -24,7 +24,7 @@ public final class ServerConfig {
     public ModConfigSpec.ConfigValue<String> currencyId;
     public ModConfigSpec.ConfigValue<String> currencyDisplayName;
 
-    public ModConfigSpec.ConfigValue<List<? extends Config>> shopConfigs;
+    public ModConfigSpec.ConfigValue<List<? extends Config>> shops;
 
     public ServerConfig(ModConfigSpec.Builder builder) {
         builder.comment("Cobbled Market Configuration").push("server");
@@ -36,7 +36,7 @@ public final class ServerConfig {
         currencyDisplayName = builder.comment("Currency display name for the market")
                 .define("currencyDisplayName", "Dollars");
 
-        shopConfigs = builder.comment("List of shop configurations")
+        shops = builder.comment("List of shop configurations")
                 .defineListAllowEmpty(
                         List.of("shops"),
                         DEFAULT_SHOP_CONFIGS,

@@ -15,6 +15,7 @@ dependencies {
 
     // Main dependencies
     compileOnly(libs.bundles.commonCompileOnly)
+    compileOnly(libs.molang) { isTransitive = false }
     implementation(libs.bundles.commonImplementation)
     modCompileOnly(libs.bundles.commonModCompileOnly)
     modImplementation(libs.bundles.commonModImplementation)

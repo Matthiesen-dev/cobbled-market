@@ -28,7 +28,7 @@ public final class CobbledMarketConfig {
         if (cachedShopConfigs != null) {
             return cachedShopConfigs;
         }
-        cachedShopConfigs = SERVER_CONFIG.shopConfigs.get().stream()
+        cachedShopConfigs = SERVER_CONFIG.shops.get().stream()
                 .map(ShopConfig::deserialize)
                 .map(ShopConfig::toLiveShop)
                 .toList();
@@ -36,7 +36,7 @@ public final class CobbledMarketConfig {
     }
 
     public static void reloadCachedShopConfigs() {
-        cachedShopConfigs = SERVER_CONFIG.shopConfigs.get().stream()
+        cachedShopConfigs = SERVER_CONFIG.shops.get().stream()
                 .map(ShopConfig::deserialize)
                 .map(ShopConfig::toLiveShop)
                 .toList();
