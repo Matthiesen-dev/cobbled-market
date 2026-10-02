@@ -12,6 +12,8 @@ on:
 # - Cobblemon (MdwFAVRL)
 # - Matthiesen Core (sqEZOmQo)
 # - GooeyLibs (KzjvlKEN)
+# - Impactor (LdBYVaPS) - Optional
+# - CobbleDollars (s7N7AsqL) - Optional
 ## Fabric Only:
 # - Fabric API (P7dR8mSH) - Required
 # - ForgeConfigAPI Port (ohNO6lps) - Required
@@ -34,7 +36,9 @@ jobs:
         [
           {"project_id":"MdwFAVRL","dependency_type":"required"},
           {"project_id":"sqEZOmQo","dependency_type":"required"},
-          {"project_id":"KzjvlKEN","dependency_type":"required"}
+          {"project_id":"KzjvlKEN","dependency_type":"required"},
+          {"project_id":"LdBYVaPS","dependency_type":"optional"},
+          {"project_id":"s7N7AsqL","dependency_type":"optional"}
         ]
       modrinth_fabric_dependencies: |-
         [

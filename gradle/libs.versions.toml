@@ -17,8 +17,8 @@ sponge-mixin = "0.8.5"
 forge-config-api-port = "21.1.6"
 molang = "1.1.20"
 gooeylibs = "3.1.1-1.21.x"
-cobbledollars-fabric = "2.0.0+Beta-5.1-fabric,1.21.1"
-cobbledollars-neoforge = "2.0.0+Beta-5.1-neoforge,1.21.1"
+cobbledollars-fabric = "2.0.0+Beta-6.1-fabric,1.21.1"
+cobbledollars-neoforge = "2.0.0+Beta-6.1-neoforge,1.21.1"
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

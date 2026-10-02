@@ -85,6 +85,12 @@ Clicking an item in a shop purchases it immediately using the configured currenc
 - [Fabric API](https://modrinth.com/mod/fabric-api) (Fabric only)
 - [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) (Fabric only)
 
+### Supported Economy Providers
+
+- Item (Built-in)
+- [CobbleDollars](https://modrinth.com/mod/cobbledollars)
+- [Impactor](https://modrinth.com/mod/impactor)
+
 ## Docs
 
 Documentation for this mod can be found at [mods.matthiesen.dev](https://mods.matthiesen.dev/cobbled-market/)
