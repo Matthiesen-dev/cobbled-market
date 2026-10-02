@@ -84,7 +84,7 @@ public record ShopEntry(String itemId, int quantity, int price) {
         public boolean purchase(ServerPlayer player) {
             var config = CobbledMarketConfig.SERVER_CONFIG;
             try {
-                EconomyProvider provider = CobbledMarketCommon.INSTANCE.getEconomyManager().getEconomyProvider(config.currencyProvider.get());
+                EconomyProvider provider = CobbledMarketCommon.INSTANCE.getEconomyManager().getEconomyProvider(config.currencyProvider.get().getId());
                 String currencyId = config.currencyId.get();
                 String currencyDisplayName = config.currencyDisplayName.get();
                 boolean hasFunds = provider.hasEnough(player, this.price, currencyId);

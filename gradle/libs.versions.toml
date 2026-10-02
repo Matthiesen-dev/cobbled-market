@@ -17,6 +17,8 @@ sponge-mixin = "0.8.5"
 forge-config-api-port = "21.1.6"
 molang = "1.1.20"
 gooeylibs = "3.1.1-1.21.x"
+cobbledollars-fabric = "2.0.0+Beta-5.1-fabric,1.21.1"
+cobbledollars-neoforge = "2.0.0+Beta-5.1-neoforge,1.21.1"
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
@@ -51,24 +53,26 @@ molang = { module = "com.bedrockk:molang", version.ref = "molang" }
 gooeylibs-api = { group = "ca.landonjw.gooeylibs", name = "api", version.ref = "gooeylibs" }
 gooeylibs-fabric = { group = "ca.landonjw.gooeylibs", name = "fabric", version.ref = "gooeylibs" }
 gooeylibs-neoforge = { group = "ca.landonjw.gooeylibs", name = "neoforge", version.ref = "gooeylibs" }
+cobbledollars-fabric = { group = "maven.modrinth", name = "cobbledollars", version.ref = "cobbledollars-fabric" }
+cobbledollars-neoforge = { group = "maven.modrinth", name = "cobbledollars", version.ref = "cobbledollars-neoforge" }
 
 [bundles]
 commonCompileOnly = ["sponge-mixin", "forge-config-api-port-common"]
 commonImplementation = []
-commonModCompileOnly = []
+commonModCompileOnly = ["cobbledollars-fabric"]
 commonModImplementation = ["gooeylibs-api"]
 commonModImplementationNoTransitive = ["cobblemon-common", "matthiesen-core-common"]
 
 fabricCompileOnly = []
 fabricImplementation = []
 fabricModCompileOnly = []
-fabricModRuntimeOnly = ["forge-config-api-port-fabric", "gooeylibs-fabric"]
+fabricModRuntimeOnly = ["forge-config-api-port-fabric", "gooeylibs-fabric", "cobbledollars-fabric"]
 fabricModImplementation = ["fabric-loader", "fabric-api", "fabric-language-kotlin"]
 fabricModImplementationNoTransitive = ["cobblemon-fabric", "matthiesen-core-fabric"]
 
 neoforgeCompileOnly = []
 neoforgeImplementation = []
 neoforgeModCompileOnly = []
-neoforgeModRuntimeOnly = ["gooeylibs-neoforge"]
+neoforgeModRuntimeOnly = ["gooeylibs-neoforge", "cobbledollars-neoforge"]
 neoforgeModImplementation = []
 neoforgeModImplementationNoTransitive = ["cobblemon-neoforge", "matthiesen-core-neoforge"]

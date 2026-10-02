@@ -2,6 +2,7 @@ package dev.matthiesen.cobbled_market.common;
 
 import dev.matthiesen.cobbled_market.common.command.MarketCommand;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
+import dev.matthiesen.cobbled_market.common.economy_providers.CobbleDollarsCompat;
 import dev.matthiesen.cobbled_market.common.registry.MolangExtensions;
 import dev.matthiesen.cobbled_market.common.registry.PermissionRegistry;
 import dev.matthiesen.libs.faststats.Token;
@@ -42,6 +43,7 @@ public final class CobbledMarketCommon extends AbstractCommonMod {
         PlatformEvents.SERVER_STOPPED.subscribe(event -> CobbledMarketConfig.invalidateCachedShopConfigs());
 
         MolangExtensions.register();
+        CobbleDollarsCompat.register();
 
         createInfoLog("Initialized");
     }
