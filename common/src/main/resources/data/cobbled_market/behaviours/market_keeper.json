@@ -1,0 +1,25 @@
+{
+    "name": "Market NPC Behaviour",
+    "description": "Adds market interactions to the NPCs",
+    "entityType": "cobblemon:npc",
+    "undo": [
+        "q.entity.unset_interaction();"
+    ],
+    "configurations": [
+        {
+            "type": "script",
+            "variables": [
+                {
+                    "variableName": "shop_id",
+                    "displayName": "Shop ID",
+                    "description": "The ID of the shop this NPC is associated with",
+                    "type": "TEXT",
+                    "defaultValue": "example_shop"
+                }
+            ],
+            "script": [
+                "q.entity.set_script_interaction('cobbled_market:market_keeper_interaction');"
+            ]
+        }
+    ]
+}

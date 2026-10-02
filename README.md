@@ -25,12 +25,35 @@ Available permission nodes:
 - `cobbled_market.command.market.shop`
 - `cobbled_market.command.market.reload`
 
-## Molang Functions
+## Cobblemon NPCs
+
+### Molang Functions
 
 The following Molang functions are available for use with Cobblemon NPCs:
 
 - `q.player.market.open()` - Opens the shop directory (or the shop directly if only one is configured). Returns 1.0 if successful, 0.0 otherwise.
 - `q.player.market.shop(<shopId>)` - Opens a specific shop. Returns 1.0 if successful, 0.0 otherwise.
+
+### NPC Behaviours
+
+The `market_keeper` behaviour is provided for use with Cobblemon NPCs. It can be used to create a shopkeeper NPC that opens the shop directory or a specific shop when interacted with.
+
+In your NPC's configuration, add the following:
+
+```json
+{
+  ...other npc config options...,
+  "ai": [
+    {
+      "type": "apply_behaviours",
+      "behaviours": [
+        ...other behaviours...,
+        "cobbled_market:market_keeper"
+      ]
+    }
+  ]
+}
+```
 
 ## Shops
 
