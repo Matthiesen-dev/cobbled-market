@@ -5,7 +5,9 @@
   <img src="https://mods.matthiesen.dev/badges/cobblemon.svg" alt="Cobblemon">
 </div>
 
-TODO
+This mod provides a simple, configurable shop system for Cobblemon servers. It allows server owners to define shops in a configuration file, 
+which players can access via Cobblemon NPC Molang functions or the `/market` command. The mod supports multiple shops, each with its own set 
+of items and prices, and can be easily customized to fit the needs of any server.
 
 ## Commands
 
@@ -17,6 +19,13 @@ TODO
 
 Permission levels can be changed in `config/cobbled_market/permissions.toml` (permission nodes: `cobbled_market.command.market`,
 `cobbled_market.command.market.shop`, `cobbled_market.command.market.reload`).
+
+## Molang Functions
+
+The following Molang functions are available for use with Cobblemon NPCs:
+
+- `q.player.market.open()` - Opens the shop directory (or the shop directly if only one is configured). Returns 1.0 if successful, 0.0 otherwise.
+- `q.player.market.shop(<shopId>)` - Opens a specific shop. Returns 1.0 if successful, 0.0 otherwise.
 
 ## Shops
 
