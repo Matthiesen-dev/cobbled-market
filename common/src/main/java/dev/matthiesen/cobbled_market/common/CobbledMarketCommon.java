@@ -1,8 +1,12 @@
 package dev.matthiesen.cobbled_market.common;
 
+import dev.matthiesen.cobbled_market.common.command.MarketCommand;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
+import dev.matthiesen.cobbled_market.common.registry.MolangExtensions;
+import dev.matthiesen.cobbled_market.common.registry.PermissionRegistry;
 import dev.matthiesen.libs.faststats.Token;
 import dev.matthiesen.matthiesen_core.common.AbstractCommonMod;
+import dev.matthiesen.matthiesen_core.common.api.events.PlatformEvents;
 import dev.matthiesen.matthiesen_core.common.api.platform.loader.ModConfigType;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +34,15 @@ public final class CobbledMarketCommon extends AbstractCommonMod {
 
         registerModConfig(MOD_ID, ModConfigType.SERVER, CobbledMarketConfig.SERVER_SPEC, configPath("server"));
         registerModConfig(MOD_ID, ModConfigType.STARTUP, CobbledMarketConfig.PERMISSIONS_SPEC, configPath("permissions"));
+
+        PermissionRegistry.init();
+        getCommandsRegistryManager().registerCommand(MarketCommand.CMD);
+
+        // Shop configs are per-world server configs, so drop the cache whenever they may have changed.
+        PlatformEvents.CONFIG_RELOADING(MOD_ID).subscribe(event -> CobbledMarketConfig.invalidateCachedShopConfigs());
+        PlatformEvents.SERVER_STOPPED.subscribe(event -> CobbledMarketConfig.invalidateCachedShopConfigs());
+
+        MolangExtensions.register();
 
         createInfoLog("Initialized");
     }

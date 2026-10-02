@@ -1,9 +1,12 @@
 package dev.matthiesen.cobbled_market.common.config;
 
+import com.electronwill.nightconfig.core.Config;
+import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.cobbled_market.common.config.defs.ShopConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class CobbledMarketConfig {
@@ -25,21 +28,32 @@ public final class CobbledMarketConfig {
     private static List<ShopConfig.Live> cachedShopConfigs = null;
 
     public static List<ShopConfig.Live> getShopConfigs() {
-        if (cachedShopConfigs != null) {
-            return cachedShopConfigs;
+        if (cachedShopConfigs == null) {
+            cachedShopConfigs = loadShopConfigs();
         }
-        cachedShopConfigs = SERVER_CONFIG.shops.get().stream()
-                .map(ShopConfig::deserialize)
-                .map(ShopConfig::toLiveShop)
-                .toList();
         return cachedShopConfigs;
     }
 
     public static void reloadCachedShopConfigs() {
-        cachedShopConfigs = SERVER_CONFIG.shops.get().stream()
-                .map(ShopConfig::deserialize)
-                .map(ShopConfig::toLiveShop)
-                .toList();
+        cachedShopConfigs = loadShopConfigs();
+    }
+
+    public static void invalidateCachedShopConfigs() {
+        cachedShopConfigs = null;
+    }
+
+    private static List<ShopConfig.Live> loadShopConfigs() {
+        List<ShopConfig.Live> shops = new ArrayList<>();
+        for (Config config : SERVER_CONFIG.shops.get()) {
+            try {
+                shops.add(ShopConfig.deserialize(config).toLiveShop());
+            } catch (Exception e) {
+                CobbledMarketCommon.INSTANCE.createErrorLog(
+                        "Skipping invalid shop configuration '" + config.get("shopId") + "': " + e.getMessage(), e
+                );
+            }
+        }
+        return List.copyOf(shops);
     }
 
     public static ShopConfig.Live getShop(String shopId) {

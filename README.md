@@ -7,6 +7,39 @@
 
 TODO
 
+## Commands
+
+| Command              | Description                                                                 | Default permission level |
+|----------------------|-----------------------------------------------------------------------------|--------------------------|
+| `/market`            | Opens the shop directory (or the shop directly if only one is configured)  | `NONE`                   |
+| `/market <shopId>`   | Opens a specific shop (tab-completes configured shop IDs)                  | `NONE`                   |
+| `/market reload`     | Reloads shop definitions from `server.toml`                                | `CHEAT_COMMANDS_AND_COMMAND_BLOCKS` |
+
+Permission levels can be changed in `config/cobbled_market/permissions.toml` (permission nodes: `cobbled_market.command.market`,
+`cobbled_market.command.market.shop`, `cobbled_market.command.market.reload`).
+
+## Shops
+
+Shops are defined in the `shops` list of the per-world `config/cobbled_market/server.toml`. Menus are generated
+automatically from this list:
+
+```toml
+[[server.shops]]
+shopId = "example_shop"     # Single word (letters, numbers, _ - . +); "reload" is reserved
+shopName = "Example Shop"
+shopIcon = "minecraft:chest" # Optional, defaults to minecraft:chest
+[[server.shops.entries]]
+    itemId = "minecraft:stone"
+    quantity = 64
+    price = 10
+[[server.shops.entries]]
+    itemId = "minecraft:dirt"
+    quantity = 64
+    price = 5
+```
+
+Clicking an item in a shop purchases it immediately using the configured currency provider.
+
 ## Requirements
 
 - [Matthiesen Core](https://modrinth.com/mod/matthiesen-core)

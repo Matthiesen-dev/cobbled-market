@@ -22,8 +22,8 @@ public record ShopEntry(String itemId, int quantity, int price) {
 
     public static ShopEntry deserialize(Config config) {
         String itemRaw = config.get("itemId");
-        int quantity = config.get("quantity");
-        int price = config.get("price");
+        int quantity = config.<Number>get("quantity").intValue();
+        int price = config.<Number>get("price").intValue();
 
         Item item = parseItem(itemRaw);
         if (item == Items.AIR) {
@@ -34,15 +34,15 @@ public record ShopEntry(String itemId, int quantity, int price) {
     }
 
     public static boolean isValid(Config config) {
-        String itemRaw = config.get("itemId");
-        int quantity = config.get("quantity");
-        int price = config.get("price");
-
-        if (itemRaw == null || itemRaw.isEmpty()) {
+        if (!(config.get("itemId") instanceof String itemRaw) || itemRaw.isEmpty()) {
             return false;
         }
 
-        return quantity > 0 && price >= 0;
+        if (!(config.get("quantity") instanceof Number quantity) || !(config.get("price") instanceof Number price)) {
+            return false;
+        }
+
+        return quantity.intValue() > 0 && price.intValue() >= 0;
     }
 
     public Config serialize() {

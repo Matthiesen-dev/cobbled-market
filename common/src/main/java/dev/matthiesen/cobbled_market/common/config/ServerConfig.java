@@ -13,6 +13,7 @@ public final class ServerConfig {
             new ShopConfig(
                     "example_shop",
                     "Example Shop",
+                    ShopConfig.DEFAULT_SHOP_ICON,
                     List.of(
                             new ShopEntry("minecraft:stone", 64, 10),
                             new ShopEntry("minecraft:dirt", 64, 5)
