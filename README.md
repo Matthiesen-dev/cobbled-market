@@ -35,17 +35,17 @@ automatically from this list:
 
 ```toml
 [[server.shops]]
-shopId = "example_shop"     # Single word (letters, numbers, _ - . +); "reload" is reserved
-shopName = "Example Shop"
-shopIcon = "minecraft:chest" # Optional, defaults to minecraft:chest
-[[server.shops.entries]]
-    itemId = "minecraft:stone"
-    quantity = 64
-    price = 10
-[[server.shops.entries]]
-    itemId = "minecraft:dirt"
-    quantity = 64
-    price = 5
+    shopName = "Example Shop"
+    shopIcon = "minecraft:chest"
+    shopId = "example_shop"
+    [[server.shops.entries]]
+        itemId = "minecraft:stone"
+        price = 10
+        quantity = 64
+    [[server.shops.entries]]
+        itemId = "minecraft:dirt"
+        price = 5
+        quantity = 64
 ```
 
 Clicking an item in a shop purchases it immediately using the configured currency provider.
