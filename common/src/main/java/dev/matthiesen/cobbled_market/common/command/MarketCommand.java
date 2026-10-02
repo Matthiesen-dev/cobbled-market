@@ -9,6 +9,7 @@ import dev.matthiesen.cobbled_market.common.config.defs.ShopConfig;
 import dev.matthiesen.cobbled_market.common.menu.MarketMenus;
 import dev.matthiesen.cobbled_market.common.registry.PermissionRegistry;
 import dev.matthiesen.matthiesen_core.common.api.command.CoreCommand;
+import dev.matthiesen.matthiesen_core.common.utility.commands.CommandBuilder;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -27,20 +28,23 @@ public final class MarketCommand implements CoreCommand {
 
     @Override
     public void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registry, Commands.CommandSelection context) {
-        dispatcher.register(
-                Commands.literal("market")
-                        .requires(src -> PermissionRegistry.checkPermission(src, PermissionRegistry.MARKET_PERMISSION))
-                        .executes(this::openMarket)
-                        .then(Commands.literal("reload")
-                                .requires(src -> PermissionRegistry.checkPermission(src, PermissionRegistry.MARKET_RELOAD_PERMISSION))
-                                .executes(this::reload))
-                        .then(Commands.argument("shopId", StringArgumentType.word())
-                                .requires(src -> PermissionRegistry.checkPermission(src, PermissionRegistry.MARKET_SHOP_PERMISSION))
-                                .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(
-                                        CobbledMarketConfig.getShopConfigs().stream().map(ShopConfig.Live::shopId),
-                                        builder))
-                                .executes(this::openShop))
-        );
+        CommandBuilder reload = CommandBuilder.create("reload")
+                .requires(src -> PermissionRegistry.checkPermission(src, PermissionRegistry.MARKET_RELOAD_PERMISSION))
+                .executes(this::reload);
+
+        CommandBuilder root = CommandBuilder.create("market")
+                .requires(src -> PermissionRegistry.checkPermission(src, PermissionRegistry.MARKET_PERMISSION))
+                .executes(this::openMarket)
+                .then(reload)
+                .argument("shopId", StringArgumentType.word(), shopId -> shopId
+                        .requires(src -> PermissionRegistry.checkPermission(src, PermissionRegistry.MARKET_SHOP_PERMISSION))
+                        .suggests((ctx, builder) -> SharedSuggestionProvider.suggest(
+                                CobbledMarketConfig.getShopConfigs().stream().map(ShopConfig.Live::shopId),
+                                builder))
+                        .executes(this::openShop)
+                );
+
+        dispatcher.register(root.build());
     }
 
     private int openMarket(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
