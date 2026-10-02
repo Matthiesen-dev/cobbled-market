@@ -9,14 +9,15 @@ public final class PermissionsConfig {
     public final ModConfigSpec.EnumValue<PermissionLevel> permission_market_reload;
 
     public PermissionsConfig(ModConfigSpec.Builder builder) {
-        builder.comment("Permission Levels for Commands").push("permissions");
+        builder.comment("Permission Levels for Cobbled Market").push("permissions");
 
+        builder.comment("Command Permissions").push("command");
         permission_market = builder.comment("Permission Level for /market (shop directory)")
-                .defineEnum("command.market", PermissionLevel.CHEAT_COMMANDS_AND_COMMAND_BLOCKS);
+                .defineEnum("market", PermissionLevel.CHEAT_COMMANDS_AND_COMMAND_BLOCKS);
         permission_market_shop = builder.comment("Permission Level for /market <shopId>")
-                .defineEnum("command.market.shop", PermissionLevel.CHEAT_COMMANDS_AND_COMMAND_BLOCKS);
+                .defineEnum("market_shop", PermissionLevel.CHEAT_COMMANDS_AND_COMMAND_BLOCKS);
         permission_market_reload = builder.comment("Permission Level for /market reload")
-                .defineEnum("command.market.reload", PermissionLevel.ALL_COMMANDS);
+                .defineEnum("market_reload", PermissionLevel.ALL_COMMANDS);
 
         builder.pop();
     }
