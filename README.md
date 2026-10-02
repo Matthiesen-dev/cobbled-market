@@ -3,6 +3,7 @@
 <div>
   <img src="https://mods.matthiesen.dev/badges/matthiesenCore.svg" alt="Matthiesen Core">
   <img src="https://mods.matthiesen.dev/badges/cobblemon.svg" alt="Cobblemon">
+  <img src="https://mods.matthiesen.dev/badges/gooeylibs.svg" alt="GooeyLibs">
 </div>
 
 This mod provides a simple, configurable shop system for Cobblemon servers. It allows server owners to define shops in a configuration file, 
@@ -53,6 +54,7 @@ Clicking an item in a shop purchases it immediately using the configured currenc
 
 - [Matthiesen Core](https://modrinth.com/mod/matthiesen-core)
 - [Cobblemon](https://modrinth.com/mod/cobblemon)
+- [GooeyLibs](https://modrinth.com/mod/gooeylibs)
 - [Fabric API](https://modrinth.com/mod/fabric-api) (Fabric only)
 - [Forge Config API Port](https://modrinth.com/mod/forge-config-api-port) (Fabric only)
 
