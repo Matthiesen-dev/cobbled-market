@@ -12,11 +12,11 @@ of items and prices, and can be easily customized to fit the needs of any server
 
 ## Commands
 
-| Command              | Description                                                                 | Default permission level |
-|----------------------|-----------------------------------------------------------------------------|--------------------------|
-| `/market`            | Opens the shop directory (or the shop directly if only one is configured)  | `NONE`                   |
-| `/market <shopId>`   | Opens a specific shop (tab-completes configured shop IDs)                  | `NONE`                   |
-| `/market reload`     | Reloads shop definitions from `server.toml`                                | `CHEAT_COMMANDS_AND_COMMAND_BLOCKS` |
+| Command            | Description                                                               | Default permission level            |
+|--------------------|---------------------------------------------------------------------------|-------------------------------------|
+| `/market`          | Opens the shop directory (or the shop directly if only one is configured) | `CHEAT_COMMANDS_AND_COMMAND_BLOCKS` |
+| `/market <shopId>` | Opens a specific shop (tab-completes configured shop IDs)                 | `CHEAT_COMMANDS_AND_COMMAND_BLOCKS` |
+| `/market reload`   | Reloads shop definitions from `server.toml`                               | `ALL_COMMANDS`                      |
 
 Permission levels can be changed in `config/cobbled_market/permissions.toml`:
 
