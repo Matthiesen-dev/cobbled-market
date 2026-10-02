@@ -32,14 +32,13 @@ public final class MarketMenus {
         return true;
     }
 
-    public static boolean openShop(ServerPlayer player, String shopId) {
+    public static boolean openShop(ServerPlayer player, String shopId, boolean showBackButton) {
         ShopConfig.Live shop = CobbledMarketConfig.getShop(shopId);
         if (shop == null) {
             player.sendSystemMessage(Component.literal("Unknown shop: " + shopId).withStyle(ChatFormatting.RED));
             return false;
         }
-        boolean showBack = CobbledMarketConfig.getShopConfigs().size() > 1;
-        UIManager.openUIForcefully(player, new ShopScreen(player, shop, showBack).getPage());
+        UIManager.openUIForcefully(player, new ShopScreen(player, shop, showBackButton).getPage());
         return true;
     }
 }

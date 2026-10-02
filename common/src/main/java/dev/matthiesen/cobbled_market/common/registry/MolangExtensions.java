@@ -50,7 +50,7 @@ public final class MolangExtensions {
             // q.player.market.shop(<shopId>)
             map.put("shop", moParams -> {
                 String shopId = moParams.getString(0);
-                return MarketMenus.openShop((ServerPlayer) player, shopId) ? DoubleValue.ONE : DoubleValue.ZERO;
+                return MarketMenus.openShop((ServerPlayer) player, shopId, false) ? DoubleValue.ONE : DoubleValue.ZERO;
             });
 
             return map;

@@ -51,7 +51,7 @@ public final class MarketCommand implements CoreCommand {
     private int openShop(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         String shopId = StringArgumentType.getString(context, "shopId");
-        return MarketMenus.openShop(player, shopId) ? 1 : 0;
+        return MarketMenus.openShop(player, shopId, false) ? 1 : 0;
     }
 
     private int reload(CommandContext<CommandSourceStack> context) {
