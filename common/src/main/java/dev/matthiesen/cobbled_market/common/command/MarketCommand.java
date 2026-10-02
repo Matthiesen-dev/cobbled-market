@@ -61,7 +61,8 @@ public final class MarketCommand implements CoreCommand {
     private int reload(CommandContext<CommandSourceStack> context) {
         CobbledMarketConfig.reloadCachedShopConfigs();
         int count = CobbledMarketConfig.getShopConfigs().size();
-        context.getSource().sendSuccess(() -> Component.literal("Reloaded " + count + " shop(s)."), true);
+        String messageFormat = CobbledMarketConfig.SERVER_CONFIG.messages_reloadConfig.get();
+        context.getSource().sendSuccess(() -> Component.literal(String.format(messageFormat, count)), true);
         return 1;
     }
 }

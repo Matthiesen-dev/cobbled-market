@@ -21,7 +21,8 @@ public final class MarketMenus {
     public static boolean openMarket(ServerPlayer player) {
         List<ShopConfig.Live> shops = CobbledMarketConfig.getShopConfigs();
         if (shops.isEmpty()) {
-            player.sendSystemMessage(Component.literal("There are no shops configured.").withStyle(ChatFormatting.RED));
+            String errorMessage = CobbledMarketConfig.SERVER_CONFIG.menu_errorNoShopsConfigured.get();
+            player.sendSystemMessage(Component.literal(errorMessage).withStyle(ChatFormatting.RED));
             return false;
         }
         if (shops.size() == 1) {
@@ -35,7 +36,9 @@ public final class MarketMenus {
     public static boolean openShop(ServerPlayer player, String shopId, boolean showBackButton) {
         ShopConfig.Live shop = CobbledMarketConfig.getShop(shopId);
         if (shop == null) {
-            player.sendSystemMessage(Component.literal("Unknown shop: " + shopId).withStyle(ChatFormatting.RED));
+            String errorMessage = CobbledMarketConfig.SERVER_CONFIG.menu_errorUnknownShop.get()
+                    .replace("%shopId%", shopId);
+            player.sendSystemMessage(Component.literal(errorMessage).withStyle(ChatFormatting.RED));
             return false;
         }
         UIManager.openUIForcefully(player, new ShopScreen(player, shop, showBackButton).getPage());

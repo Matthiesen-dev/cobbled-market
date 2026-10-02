@@ -82,33 +82,34 @@ public record ShopEntry(String itemId, int quantity, int price) {
         }
 
         public boolean purchase(ServerPlayer player) {
+            var config = CobbledMarketConfig.SERVER_CONFIG;
             try {
-                var config = CobbledMarketConfig.SERVER_CONFIG;
                 EconomyProvider provider = CobbledMarketCommon.INSTANCE.getEconomyManager().getEconomyProvider(config.currencyProvider.get());
                 String currencyId = config.currencyId.get();
                 String currencyDisplayName = config.currencyDisplayName.get();
                 boolean hasFunds = provider.hasEnough(player, this.price, currencyId);
 
                 if (!hasFunds) {
-                    String messageFormat = "You do not have enough %s to purchase this item. You need %d %s.";
+                    String messageFormat = config.messages_notEnoughFunds.get();
                     player.sendSystemMessage(Component.literal(String.format(messageFormat, currencyDisplayName, this.price, currencyDisplayName)));
                     return false;
                 }
 
                 boolean success = provider.withdraw(player, this.price, currencyId);
                 if (!success) {
-                    String messageFormat = "An error occurred while processing your purchase. Please try again later.";
+                    String messageFormat = config.messages_withdrawError.get();
                     player.sendSystemMessage(Component.literal(messageFormat));
                     return false;
                 }
 
                 PlayerExtensionsKt.giveOrDropItemStack(player, this.item.getDefaultInstance().copyWithCount(this.quantity), true);
-                String messageFormat = "You have purchased %d x %s for %d %s.";
+                String messageFormat = config.messages_purchaseSuccess.get();
                 player.sendSystemMessage(Component.literal(String.format(messageFormat, this.quantity, this.item.getDefaultInstance().getDisplayName().getString(), this.price, currencyDisplayName)));
                 return true;
             } catch (Exception e) {
+                String messageFormat = CobbledMarketConfig.SERVER_CONFIG.messages_purchaseFailure.get();
                 player.sendSystemMessage(
-                        Component.literal("An error occurred while processing the purchase. Please try again later.")
+                        Component.literal(messageFormat)
                                 .withStyle(net.minecraft.ChatFormatting.RED)
                 );
                 CobbledMarketCommon.INSTANCE.createErrorLog(

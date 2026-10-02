@@ -11,6 +11,8 @@ import ca.landonjw.gooeylibs2.api.page.Page;
 import ca.landonjw.gooeylibs2.api.template.slot.TemplateSlotDelegate;
 import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
 import com.cobblemon.mod.common.CobblemonSounds;
+import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
+import dev.matthiesen.cobbled_market.common.config.ServerConfig;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.network.chat.Component;
@@ -50,14 +52,16 @@ public abstract class PaginatedScreen {
                 .display(MenuUtilities.getFrameItem())
                 .build();
 
+        ServerConfig config = CobbledMarketConfig.SERVER_CONFIG;
+
         LinkedPageButton previous = LinkedPageButton.builder()
-                .display(MenuUtilities.getNavItem("Previous"))
+                .display(MenuUtilities.getNavPrevItem(config.menu_navPrevText.get()))
                 .linkType(LinkType.Previous)
                 .onClick(action -> new SoundsPlayer(CobblemonSounds.PC_CLICK).play(action.getPlayer()))
                 .build();
 
         LinkedPageButton next = LinkedPageButton.builder()
-                .display(MenuUtilities.getNavItem("Next"))
+                .display(MenuUtilities.getNavNextItem(config.menu_navNextText.get()))
                 .linkType(LinkType.Next)
                 .onClick(action -> new SoundsPlayer(CobblemonSounds.PC_CLICK).play(action.getPlayer()))
                 .build();

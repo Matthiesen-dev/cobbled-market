@@ -38,7 +38,6 @@ public final class CobbledMarketCommon extends AbstractCommonMod {
         PermissionRegistry.init();
         getCommandsRegistryManager().registerCommand(MarketCommand.CMD);
 
-        // Shop configs are per-world server configs, so drop the cache whenever they may have changed.
         PlatformEvents.CONFIG_RELOADING(MOD_ID).subscribe(event -> CobbledMarketConfig.invalidateCachedShopConfigs());
         PlatformEvents.SERVER_STOPPED.subscribe(event -> CobbledMarketConfig.invalidateCachedShopConfigs());
 
