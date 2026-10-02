@@ -21,6 +21,13 @@ public record ShopConfig(
         List<ShopEntry> entries
 ) {
     public static final String DEFAULT_SHOP_ICON = "minecraft:chest";
+    public static final ShopConfig DEFAULT_SHOP_CONFIG = new ShopConfig(
+            "example_shop",
+            "Example Shop",
+            DEFAULT_SHOP_ICON,
+            ShopEntry.DEFAULT_ENTRIES
+    );
+    public static final List<Config> DEFAULT_ENTRIES = List.of(DEFAULT_SHOP_CONFIG.serialize());
 
     public static ShopConfig deserialize(Config config) {
         String shopId = config.get("shopId");

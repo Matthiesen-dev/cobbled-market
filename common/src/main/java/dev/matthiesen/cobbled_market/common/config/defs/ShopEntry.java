@@ -16,7 +16,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import java.util.List;
+
 public record ShopEntry(String itemId, int quantity, int price) {
+    public static final ShopEntry DEFAULT_1 = new ShopEntry("minecraft:stone", 64, 10);
+    public static final ShopEntry DEFAULT_2 = new ShopEntry("minecraft:dirt", 64, 5);
+    public static final List<ShopEntry> DEFAULT_ENTRIES = List.of(DEFAULT_1, DEFAULT_2);
+
     public static Item parseItem(String itemRaw) {
         Item item = ItemDecoder.stringToItem(itemRaw, Items.AIR);
         if (item == null) {
