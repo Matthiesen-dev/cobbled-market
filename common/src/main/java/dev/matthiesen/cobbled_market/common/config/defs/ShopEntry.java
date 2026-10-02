@@ -1,13 +1,18 @@
 package dev.matthiesen.cobbled_market.common.config.defs;
 
+import ca.landonjw.gooeylibs2.api.button.Button;
+import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import com.cobblemon.mod.common.util.PlayerExtensionsKt;
 import com.electronwill.nightconfig.core.Config;
 import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
+import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
 import dev.matthiesen.matthiesen_core.common.api.economy.EconomyProvider;
+import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import dev.matthiesen.matthiesen_core.common.utility.item.ItemDecoder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -58,6 +63,18 @@ public record ShopEntry(String itemId, int quantity, int price) {
     }
 
     public record Live(Item item, int quantity, int price) {
+        public Button toShopEntryButton() {
+            return GooeyButton.builder()
+                    .display(MenuUtilities.getShopEntryItem(this))
+                    .onClick(action -> {
+                        ServerPlayer sender = action.getPlayer();
+                        boolean success = purchase(sender);
+                        new SoundsPlayer(success ? SoundEvents.EXPERIENCE_ORB_PICKUP : SoundEvents.VILLAGER_NO)
+                                .play(sender);
+                    })
+                    .build();
+        }
+
         public boolean purchase(ServerPlayer player) {
             try {
                 var config = CobbledMarketConfig.SERVER_CONFIG;

@@ -1,6 +1,14 @@
 package dev.matthiesen.cobbled_market.common.config.defs;
 
+import ca.landonjw.gooeylibs2.api.UIManager;
+import ca.landonjw.gooeylibs2.api.button.Button;
+import ca.landonjw.gooeylibs2.api.button.GooeyButton;
+import com.cobblemon.mod.common.CobblemonSounds;
 import com.electronwill.nightconfig.core.Config;
+import dev.matthiesen.cobbled_market.common.menu.ShopScreen;
+import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
+import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -78,5 +86,15 @@ public record ShopConfig(
     }
 
     public record Live(String shopId, String shopName, Item shopIcon, List<ShopEntry.Live> entries) {
+        public Button toShopButton() {
+            return GooeyButton.builder()
+                    .display(MenuUtilities.getShopItem(this))
+                    .onClick(action -> {
+                        ServerPlayer sender = action.getPlayer();
+                        new SoundsPlayer(CobblemonSounds.PC_CLICK).play(sender);
+                        UIManager.openUIForcefully(sender, new ShopScreen(sender, this, true).getPage());
+                    })
+                    .build();
+        }
     }
 }
