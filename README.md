@@ -18,8 +18,12 @@ of items and prices, and can be easily customized to fit the needs of any server
 | `/market <shopId>`   | Opens a specific shop (tab-completes configured shop IDs)                  | `NONE`                   |
 | `/market reload`     | Reloads shop definitions from `server.toml`                                | `CHEAT_COMMANDS_AND_COMMAND_BLOCKS` |
 
-Permission levels can be changed in `config/cobbled_market/permissions.toml` (permission nodes: `cobbled_market.command.market`,
-`cobbled_market.command.market.shop`, `cobbled_market.command.market.reload`).
+Permission levels can be changed in `config/cobbled_market/permissions.toml`:
+
+Available permission nodes: 
+- `cobbled_market.command.market`
+- `cobbled_market.command.market.shop`
+- `cobbled_market.command.market.reload`
 
 ## Molang Functions
 
