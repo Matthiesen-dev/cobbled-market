@@ -51,6 +51,7 @@ side = "SERVER"
 [[dependencies.${mod_id}]]
 modId = "cobbledollars"
 mandatory = false
+type = "optional"
 versionRange = "[2.0.0+Beta-6.1+1.21.1,)"
 ordering = "AFTER"
 side = "SERVER"
@@ -58,6 +59,7 @@ side = "SERVER"
 [[dependencies.${mod_id}]]
 modId = "impactor"
 mandatory = false
+type = "optional"
 versionRange = "[5.3.5+1.21.1,)"
 ordering = "AFTER"
 side = "SERVER"
