@@ -7,9 +7,10 @@ import com.cobblemon.mod.common.CobblemonSounds;
 import com.electronwill.nightconfig.core.Config;
 import dev.matthiesen.cobbled_market.common.menu.ShopScreen;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
+import dev.matthiesen.cobbled_market.common.utility.NBTSerializer;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.List;
@@ -85,14 +86,14 @@ public record ShopConfig(
         List<ShopEntry.Live> liveEntries = this.entries.stream()
                 .map(ShopEntry::toLiveShopEntry)
                 .toList();
-        Item icon = ShopEntry.parseItem(this.shopIcon);
-        if (icon == Items.AIR) {
-            icon = Items.CHEST;
+        ItemStack icon = NBTSerializer.stringToItemStack(this.shopIcon);
+        if (icon.getItem() == Items.AIR) {
+            icon = new ItemStack(Items.CHEST);
         }
         return new Live(this.shopId, this.shopName, icon, liveEntries);
     }
 
-    public record Live(String shopId, String shopName, Item shopIcon, List<ShopEntry.Live> entries) {
+    public record Live(String shopId, String shopName, ItemStack shopIcon, List<ShopEntry.Live> entries) {
         public Button toShopButton() {
             return GooeyButton.builder()
                     .display(MenuUtilities.getShopItem(this))

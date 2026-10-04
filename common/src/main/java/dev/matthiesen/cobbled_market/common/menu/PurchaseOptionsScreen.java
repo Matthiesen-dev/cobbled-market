@@ -29,7 +29,7 @@ public final class PurchaseOptionsScreen extends PaginatedScreen {
     @Override
     public Component getDisplayTitle() {
         String title = CobbledMarketConfig.SERVER_CONFIG.menu_purchaseOptionsTitle.get()
-                .replace("%item%", entry.item().getDefaultInstance().getHoverName().getString())
+                .replace("%item%", entry.item().getHoverName().getString())
                 .replace("%shop%", shopName);
         return Component.literal(title);
     }

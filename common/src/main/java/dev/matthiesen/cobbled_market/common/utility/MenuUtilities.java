@@ -125,9 +125,9 @@ public final class MenuUtilities {
                 .build();
     }
 
-    public static ItemStack getPurchaseOptionItem(Item item, PurchaseOption option) {
+    public static ItemStack getPurchaseOptionItem(ItemStack item, PurchaseOption option) {
         String currency = CobbledMarketConfig.SERVER_CONFIG.currencyDisplayName.get();
-        ItemStack stack = item.getDefaultInstance();
+        ItemStack stack = item.copy();
         stack.setCount(Math.clamp(option.quantity(), 1, stack.getMaxStackSize()));
 
         String loreLine1 = CobbledMarketConfig.SERVER_CONFIG.menu_shopItemLoreLn1.get()
