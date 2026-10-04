@@ -2,6 +2,7 @@ package dev.matthiesen.cobbled_market.common.utility;
 
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.config.ServerConfig;
+import dev.matthiesen.cobbled_market.common.config.defs.PurchaseOption;
 import dev.matthiesen.cobbled_market.common.config.defs.ShopConfig;
 import dev.matthiesen.cobbled_market.common.config.defs.ShopEntry;
 import dev.matthiesen.matthiesen_core.common.utility.item.ItemBuilder;
@@ -73,6 +74,11 @@ public final class MenuUtilities {
         return builder(getNavBack(), Component.literal(getServerConfig().menu_navBackText.get()).withStyle(ChatFormatting.RED));
     }
 
+    public static ItemStack getBackToShopItem(String shopName) {
+        String label = getServerConfig().menu_navBackToShopText.get().replace("%shop%", shopName);
+        return builder(getNavBack(), Component.literal(label).withStyle(ChatFormatting.RED));
+    }
+
     public static ItemStack getShopItem(ShopConfig.Live shop) {
         int count = shop.entries().size();
 
@@ -94,14 +100,28 @@ public final class MenuUtilities {
     }
 
     public static ItemStack getShopEntryItem(ShopEntry.Live entry) {
+        if (!entry.hasOptions()) {
+            return getPurchaseOptionItem(entry.item(), entry.options().getFirst());
+        }
+        String countLore = getServerConfig().menu_shopOptionsLoreLn1.get()
+                .replace("%count%", String.valueOf(entry.options().size()));
+        return new ItemBuilder(entry.item())
+                .addLore(new Component[]{
+                        Component.literal(countLore).withStyle(ChatFormatting.GRAY),
+                        Component.literal(getServerConfig().menu_shopOptionsLoreLn2.get()).withStyle(ChatFormatting.YELLOW)
+                })
+                .build();
+    }
+
+    public static ItemStack getPurchaseOptionItem(Item item, PurchaseOption option) {
         String currency = CobbledMarketConfig.SERVER_CONFIG.currencyDisplayName.get();
-        ItemStack stack = entry.item().getDefaultInstance();
-        stack.setCount(Math.clamp(entry.quantity(), 1, stack.getMaxStackSize()));
+        ItemStack stack = item.getDefaultInstance();
+        stack.setCount(Math.clamp(option.quantity(), 1, stack.getMaxStackSize()));
 
         String loreLine1 = CobbledMarketConfig.SERVER_CONFIG.menu_shopItemLoreLn1.get()
-                .replace("%quantity%", String.valueOf(entry.quantity()));
+                .replace("%quantity%", String.valueOf(option.quantity()));
         String loreLine2 = CobbledMarketConfig.SERVER_CONFIG.menu_shopItemLoreLn2.get()
-                .replace("%price%", String.valueOf(entry.price()))
+                .replace("%price%", String.valueOf(option.price()))
                 .replace("%currency%", currency);
         String loreLine3 = CobbledMarketConfig.SERVER_CONFIG.menu_shopItemLoreLn3.get();
 
