@@ -88,7 +88,7 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
 
     public Live toLiveShopEntry() {
         ItemStack item = NBTSerializer.stringToItemStack(itemId);
-        if (item.getItem() == Items.AIR) {
+        if (item.isEmpty() || item.getItem() == Items.AIR) {
             throw new IllegalArgumentException("Invalid item: " + itemId);
         }
         return new Live(item, options, hasOptions);

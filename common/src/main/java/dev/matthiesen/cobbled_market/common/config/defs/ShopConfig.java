@@ -87,7 +87,7 @@ public record ShopConfig(
                 .map(ShopEntry::toLiveShopEntry)
                 .toList();
         ItemStack icon = NBTSerializer.stringToItemStack(this.shopIcon);
-        if (icon.getItem() == Items.AIR) {
+        if (icon.isEmpty() || icon.getItem() == Items.AIR) {
             icon = new ItemStack(Items.CHEST);
         }
         return new Live(this.shopId, this.shopName, icon, liveEntries);
