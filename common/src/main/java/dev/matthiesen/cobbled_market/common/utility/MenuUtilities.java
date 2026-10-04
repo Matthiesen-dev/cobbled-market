@@ -18,6 +18,7 @@ public final class MenuUtilities {
     public static final Item PAGE_PLACEHOLDER = Items.PAPER;
     public static final Item NAV_ITEM = Items.ARROW;
     public static final Item BACK_ITEM = Items.BARRIER;
+    public static final Item CURRENCY_ITEM = Items.EMERALD;
 
     private static ItemStack builder(Item item, Component name) {
         return new ItemBuilder(item)
@@ -48,6 +49,17 @@ public final class MenuUtilities {
 
     public static Item getNavBack() {
         return ItemDecoder.stringToItem(getServerConfig().menu_navBackItemId.get(), BACK_ITEM);
+    }
+
+    public static Item getCurrencyItem() {
+        return ItemDecoder.stringToItem(getServerConfig().menu_currencyItemId.get(), CURRENCY_ITEM);
+    }
+
+    public static ItemStack getCurrencyItemStack(int balance) {
+        String currencyText = getServerConfig().menu_currencyText.get()
+                .replace("%balance%", String.valueOf(balance))
+                .replace("%currency%", getServerConfig().currencyDisplayName.get());
+        return builder(getCurrencyItem(), Component.literal(currencyText).withStyle(ChatFormatting.GOLD));
     }
 
     public static ItemStack getFrameItem() {
