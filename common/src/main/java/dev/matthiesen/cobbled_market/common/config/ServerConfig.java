@@ -19,6 +19,8 @@ public final class ServerConfig {
     public ModConfigSpec.ConfigValue<String> menu_navPrevItemId;
     public ModConfigSpec.ConfigValue<String> menu_navBackItemId;
     public ModConfigSpec.ConfigValue<String> menu_pageIndicatorText;
+    public ModConfigSpec.ConfigValue<String> menu_currencyItemId;
+    public ModConfigSpec.ConfigValue<String> menu_currencyText;
     public ModConfigSpec.ConfigValue<String> menu_navBackText;
     public ModConfigSpec.ConfigValue<String> menu_navPrevText;
     public ModConfigSpec.ConfigValue<String> menu_navNextText;
@@ -71,6 +73,10 @@ public final class ServerConfig {
                 .define("navPrevItemId", "minecraft:arrow");
         menu_navBackItemId = builder.comment("Menu navigation back item ID")
                 .define("navBackItemId", "minecraft:barrier");
+        menu_currencyItemId = builder.comment("Menu currency item ID")
+                .define("currencyItemId", "minecraft:emerald");
+        menu_currencyText = builder.comment("Menu currency text")
+                .define("currencyText", "Current Balance: %balance% %currency%");
         menu_pageIndicatorText = builder.comment("Menu page indicator text")
                 .define("pageIndicatorText", "Page %current%/%total%");
         menu_navBackText = builder.comment("Menu navigation back text")

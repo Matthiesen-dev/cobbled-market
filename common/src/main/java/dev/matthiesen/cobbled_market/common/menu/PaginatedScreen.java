@@ -11,12 +11,14 @@ import ca.landonjw.gooeylibs2.api.page.Page;
 import ca.landonjw.gooeylibs2.api.template.slot.TemplateSlotDelegate;
 import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
 import com.cobblemon.mod.common.CobblemonSounds;
+import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.config.ServerConfig;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public abstract class PaginatedScreen {
     private static final int PREVIOUS_SLOT = 45;
     private static final int BACK_SLOT = 47;
     private static final int INFO_SLOT = 49;
+    private static final int BALANCE_SLOT = 51;
     private static final int NEXT_SLOT = 53;
 
     protected final ServerPlayer player;
@@ -45,6 +48,22 @@ public abstract class PaginatedScreen {
      */
     protected @Nullable Button getBackButton() {
         return null;
+    }
+
+    private Button getPlayerBalanceButton() {
+        var config = CobbledMarketConfig.SERVER_CONFIG;
+        var ecoProvider = CobbledMarketCommon.INSTANCE.getEconomyManager().getEconomyProvider(config.currencyProvider.get().getId());
+
+        ItemStack balanceItem;
+        if (ecoProvider == null) {
+            balanceItem = MenuUtilities.getCurrencyItemStack(0);
+        } else {
+            int balance = ecoProvider.getBalance(player, config.currencyId.get());
+            balanceItem = MenuUtilities.getCurrencyItemStack(balance);
+        }
+        return GooeyButton.builder()
+                .display(balanceItem)
+                .build();
     }
 
     public Page getPage() {
@@ -70,6 +89,7 @@ public abstract class PaginatedScreen {
                 .rectangle(0, 0, 5, 9, new PlaceholderButton())
                 .set(PREVIOUS_SLOT, previous)
                 .set(INFO_SLOT, getInfoButton(1, 1))
+                .set(BALANCE_SLOT, getPlayerBalanceButton())
                 .set(NEXT_SLOT, next);
 
         Button back = getBackButton();
