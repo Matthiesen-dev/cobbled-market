@@ -14,6 +14,8 @@ public final class PermissionRegistry {
             CobbledMarketConfig.PERMISSIONS_CONFIG.permission_market_shop.get());
     public static final Permission MARKET_RELOAD_PERMISSION = register("command.market.reload",
             CobbledMarketConfig.PERMISSIONS_CONFIG.permission_market_reload.get());
+    public static final Permission MARKET_DEBUG_PERMISSION = register("command.market.debug",
+            CobbledMarketConfig.PERMISSIONS_CONFIG.permission_market_debug.get());
 
     public static void init() {}
 
