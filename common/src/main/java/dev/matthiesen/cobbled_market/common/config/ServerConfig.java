@@ -28,6 +28,10 @@ public final class ServerConfig {
     public ModConfigSpec.ConfigValue<String> menu_shopItemLoreLn1;
     public ModConfigSpec.ConfigValue<String> menu_shopItemLoreLn2;
     public ModConfigSpec.ConfigValue<String> menu_shopItemLoreLn3;
+    public ModConfigSpec.ConfigValue<String> menu_shopOptionsLoreLn1;
+    public ModConfigSpec.ConfigValue<String> menu_shopOptionsLoreLn2;
+    public ModConfigSpec.ConfigValue<String> menu_purchaseOptionsTitle;
+    public ModConfigSpec.ConfigValue<String> menu_navBackToShopText;
     public ModConfigSpec.ConfigValue<String> menu_errorNoShopsConfigured;
     public ModConfigSpec.ConfigValue<String> menu_errorUnknownShop;
 
@@ -87,6 +91,14 @@ public final class ServerConfig {
                 .define("shopItemLoreLn2", "Price: %price% %currency%");
         menu_shopItemLoreLn3 = builder.comment("Menu shop item lore line 3")
                 .define("shopItemLoreLn3", "Click to purchase");
+        menu_shopOptionsLoreLn1 = builder.comment("Option-based entry lore; %count% is the number of purchase options")
+                .define("shopOptionsLoreLn1", "Purchase options: %count%");
+        menu_shopOptionsLoreLn2 = builder.comment("Option-based entry browse prompt")
+                .define("shopOptionsLoreLn2", "Click to choose quantity");
+        menu_purchaseOptionsTitle = builder.comment("Purchase options title; supports %item% and %shop%")
+                .define("purchaseOptionsTitle", "%item% - Purchase Options");
+        menu_navBackToShopText = builder.comment("Back to shop button text; supports %shop%")
+                .define("navBackToShopText", "Back to %shop%");
         menu_errorNoShopsConfigured = builder.comment("Menu error message for no shops configured")
                 .define("errorNoShopsConfigured", "There are no shops configured.");
         menu_errorUnknownShop = builder.comment("Menu error message for unknown shop")

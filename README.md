@@ -77,6 +77,39 @@ automatically from this list:
 
 Clicking an item in a shop purchases it immediately using the configured currency provider.
 
+### Purchase options
+
+To offer different quantities of the same item at their own prices, replace an entry's `quantity` and `price`
+with an `options` list:
+
+```toml
+[[server.shops.entries]]
+    itemId = "minecraft:stone"
+    [[server.shops.entries.options]]
+        quantity = 1
+        price = 2
+    [[server.shops.entries.options]]
+        quantity = 16
+        price = 20
+    [[server.shops.entries.options]]
+        quantity = 64
+        price = 60
+```
+
+Each `price` is the **total cost** for that option's quantity, not a per-item price. Quantities must be positive
+integers and prices must be nonnegative integers, both no greater than 2,147,483,647. Zero-price options are supported.
+The options list must contain at least one choice; do not combine it with top-level `quantity` or `price`.
+
+Clicking an entry with options opens a paginated selection menu without charging the player. Clicking a choice
+purchases that exact quantity at its listed price, and the menu stays open for repeat purchases. The back button
+returns to the original shop page. Quantities exceeding an item's stack limit are delivered in separate stacks;
+items that do not fit in the inventory are dropped for the player.
+
+Legacy entries and option-based entries can coexist in the same shop. Entries without `options` retain their
+instant-purchase behavior, and even a single explicitly configured option opens the selection menu.
+Option-count lore, the browse prompt, the selection menu title, and back-to-shop text are configurable under
+`server.menu` using `shopOptionsLoreLn1`, `shopOptionsLoreLn2`, `purchaseOptionsTitle`, and `navBackToShopText`.
+
 ## Requirements
 
 - [Matthiesen Core](https://modrinth.com/mod/matthiesen-core)
