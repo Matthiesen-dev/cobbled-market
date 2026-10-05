@@ -1,11 +1,14 @@
 package dev.matthiesen.cobbled_market.common.config.defs;
 
+import ca.landonjw.gooeylibs2.api.UIManager;
 import ca.landonjw.gooeylibs2.api.button.Button;
 import ca.landonjw.gooeylibs2.api.button.GooeyButton;
+import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.util.PlayerExtensionsKt;
 import com.electronwill.nightconfig.core.Config;
 import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
+import dev.matthiesen.cobbled_market.common.menu.PurchaseOptionsScreen;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
 import dev.matthiesen.cobbled_market.common.utility.NBTSerializer;
 import dev.matthiesen.matthiesen_core.common.api.economy.EconomyProvider;
@@ -97,12 +100,24 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
     public record Live(ItemStack item, List<PurchaseOption> options, boolean hasOptions) {
         public Button toPurchaseButton(PurchaseOption option) {
             return GooeyButton.builder()
-                    .display(MenuUtilities.getPurchaseOptionItem(item, option))
+                    .display(MenuUtilities.getPurchaseOptionItem(this))
                     .onClick(action -> {
                         ServerPlayer sender = action.getPlayer();
                         boolean success = purchase(sender, option);
                         new SoundsPlayer(success ? SoundEvents.EXPERIENCE_ORB_PICKUP : SoundEvents.VILLAGER_NO)
                                 .play(sender);
+                    })
+                    .build();
+        }
+
+        public Button toPurchaseOptionButton(ShopConfig.Live shop) {
+            return GooeyButton.builder()
+                    .display(MenuUtilities.getShopEntryItem(this))
+                    .onClick(action -> {
+                        ServerPlayer sender = action.getPlayer();
+                        new SoundsPlayer(CobblemonSounds.PC_CLICK).play(sender);
+                        UIManager.openUIForcefully(sender,
+                                new PurchaseOptionsScreen(sender, this, action.getPage(), shop.shopName()).getPage());
                     })
                     .build();
         }

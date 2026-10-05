@@ -41,15 +41,7 @@ public final class ShopScreen extends PaginatedScreen {
         if (!entry.hasOptions()) {
             return entry.toPurchaseButton(entry.options().getFirst());
         }
-        return GooeyButton.builder()
-                .display(MenuUtilities.getShopEntryItem(entry))
-                .onClick(action -> {
-                    ServerPlayer sender = action.getPlayer();
-                    new SoundsPlayer(CobblemonSounds.PC_CLICK).play(sender);
-                    UIManager.openUIForcefully(sender,
-                            new PurchaseOptionsScreen(sender, entry, action.getPage(), shop.shopName()).getPage());
-                })
-                .build();
+        return entry.toPurchaseOptionButton(shop);
     }
 
     @Override
