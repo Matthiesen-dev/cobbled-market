@@ -113,7 +113,7 @@ public final class MenuUtilities {
 
     public static ItemStack getShopEntryItem(ShopEntry.Live entry) {
         if (!entry.hasOptions()) {
-            return getPurchaseOptionItem(entry);
+            return getPurchaseOptionItem(entry, entry.options().getFirst());
         }
         String countLore = getServerConfig().menu_shopOptionsLoreLn1.get()
                 .replace("%count%", String.valueOf(entry.options().size()));
@@ -126,8 +126,7 @@ public final class MenuUtilities {
                 .build();
     }
 
-    public static ItemStack getPurchaseOptionItem(ShopEntry.Live entry) {
-        var option = entry.options().getFirst();
+    public static ItemStack getPurchaseOptionItem(ShopEntry.Live entry, PurchaseOption option) {
         String currency = CobbledMarketConfig.SERVER_CONFIG.currencyDisplayName.get();
         ItemStack stack = entry.item().copy();
         stack.setCount(Math.clamp(option.quantity(), 1, stack.getMaxStackSize()));

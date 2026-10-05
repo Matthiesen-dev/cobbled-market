@@ -100,7 +100,7 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
     public record Live(ItemStack item, List<PurchaseOption> options, boolean hasOptions) {
         public Button toPurchaseButton(PurchaseOption option) {
             return GooeyButton.builder()
-                    .display(MenuUtilities.getPurchaseOptionItem(this))
+                    .display(MenuUtilities.getPurchaseOptionItem(this, option))
                     .onClick(action -> {
                         ServerPlayer sender = action.getPlayer();
                         boolean success = purchase(sender, option);
