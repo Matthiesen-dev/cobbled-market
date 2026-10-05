@@ -15,7 +15,10 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.server.level.ServerPlayer;
 
 /**
@@ -64,8 +67,12 @@ public final class MarketCommand implements CoreCommand {
     private int debugMainHand(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         var mainHandItem = player.getMainHandItem();
-        String nbtString = NBTSerializer.serialize(mainHandItem);
-        player.sendSystemMessage(Component.literal("Main Hand Item NBT: " + nbtString));
+        String itemString = NBTSerializer.serialize(mainHandItem);
+        Component copyable = Component.literal(itemString).withStyle(style -> style
+                .withColor(ChatFormatting.AQUA)
+                .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, itemString))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Click to copy"))));
+        player.sendSystemMessage(Component.literal("Main Hand Item (itemId/shopIcon): ").append(copyable));
         return 1;
     }
 

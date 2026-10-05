@@ -79,6 +79,17 @@ automatically from this list:
 
 Clicking an item in a shop purchases it immediately using the configured currency provider.
 
+### Item strings
+
+`itemId` and `shopIcon` use the same item syntax as the vanilla `/give` command, so items can include data components:
+
+```toml
+itemId = "cobblemon:poke_ball"
+itemId = "minecraft:diamond_sword[custom_name='\"Excalibur\"',enchantments={levels:{'minecraft:sharpness':5}}]"
+```
+
+To get the string for an existing item, hold it and run `/market debug main-hand-nbt`. Click the output to copy it.
+
 ### Purchase options
 
 To offer different quantities of the same item at their own prices, replace an entry's `quantity` and `price`
