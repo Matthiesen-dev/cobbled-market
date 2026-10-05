@@ -7,13 +7,13 @@ import com.electronwill.nightconfig.core.Config;
 import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
+import dev.matthiesen.cobbled_market.common.utility.NBTSerializer;
 import dev.matthiesen.matthiesen_core.common.api.economy.EconomyProvider;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
-import dev.matthiesen.matthiesen_core.common.utility.item.ItemDecoder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.List;
@@ -44,14 +44,6 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
 
     public ShopEntry(String itemId, List<PurchaseOption> options) {
         this(itemId, options, true);
-    }
-
-    public static Item parseItem(String itemRaw) {
-        Item item = ItemDecoder.stringToItem(itemRaw, Items.AIR);
-        if (item == null) {
-            return Items.AIR;
-        }
-        return item;
     }
 
     public static ShopEntry deserialize(Config config) {
@@ -95,14 +87,14 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
     }
 
     public Live toLiveShopEntry() {
-        Item item = parseItem(itemId);
-        if (item == Items.AIR) {
+        ItemStack item = NBTSerializer.stringToItemStack(itemId);
+        if (item.isEmpty() || item.getItem() == Items.AIR) {
             throw new IllegalArgumentException("Invalid item: " + itemId);
         }
         return new Live(item, options, hasOptions);
     }
 
-    public record Live(Item item, List<PurchaseOption> options, boolean hasOptions) {
+    public record Live(ItemStack item, List<PurchaseOption> options, boolean hasOptions) {
         public Button toPurchaseButton(PurchaseOption option) {
             return GooeyButton.builder()
                     .display(MenuUtilities.getPurchaseOptionItem(item, option))
@@ -139,7 +131,7 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
                     return false;
                 }
 
-                var stack = this.item.getDefaultInstance();
+                var stack = this.item.copy();
                 int remaining = option.quantity();
                 while (remaining > 0) {
                     int count = Math.min(remaining, stack.getMaxStackSize());
