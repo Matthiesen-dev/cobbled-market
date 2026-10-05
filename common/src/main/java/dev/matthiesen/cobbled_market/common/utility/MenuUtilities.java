@@ -100,7 +100,7 @@ public final class MenuUtilities {
         Component lore1 = Component.literal(count + " " + loreLine1).withStyle(ChatFormatting.GRAY);
         Component lore2 = Component.literal(loreLine2).withStyle(ChatFormatting.YELLOW);
 
-        return new ItemBuilder(shop.shopIcon())
+        return new ItemBuilder(shop.shopIcon().copy())
                 .hideAdditional()
                 .setCustomName(Component.literal(shop.shopName())
                         .withStyle(style -> style.withColor(ChatFormatting.GREEN).withItalic(false)))
@@ -113,11 +113,11 @@ public final class MenuUtilities {
 
     public static ItemStack getShopEntryItem(ShopEntry.Live entry) {
         if (!entry.hasOptions()) {
-            return getPurchaseOptionItem(entry.item(), entry.options().getFirst());
+            return getPurchaseOptionItem(entry);
         }
         String countLore = getServerConfig().menu_shopOptionsLoreLn1.get()
                 .replace("%count%", String.valueOf(entry.options().size()));
-        return new ItemBuilder(entry.item())
+        return new ItemBuilder(entry.item().copy())
                 .hideAdditional()
                 .addLore(new Component[]{
                         Component.literal(countLore).withStyle(ChatFormatting.GRAY),
@@ -126,9 +126,10 @@ public final class MenuUtilities {
                 .build();
     }
 
-    public static ItemStack getPurchaseOptionItem(ItemStack item, PurchaseOption option) {
+    public static ItemStack getPurchaseOptionItem(ShopEntry.Live entry) {
+        var option = entry.options().getFirst();
         String currency = CobbledMarketConfig.SERVER_CONFIG.currencyDisplayName.get();
-        ItemStack stack = item.copy();
+        ItemStack stack = entry.item().copy();
         stack.setCount(Math.clamp(option.quantity(), 1, stack.getMaxStackSize()));
 
         String loreLine1 = CobbledMarketConfig.SERVER_CONFIG.menu_shopItemLoreLn1.get()
