@@ -118,6 +118,7 @@ public final class MenuUtilities {
         String countLore = getServerConfig().menu_shopOptionsLoreLn1.get()
                 .replace("%count%", String.valueOf(entry.options().size()));
         return new ItemBuilder(entry.item())
+                .hideAdditional()
                 .addLore(new Component[]{
                         Component.literal(countLore).withStyle(ChatFormatting.GRAY),
                         Component.literal(getServerConfig().menu_shopOptionsLoreLn2.get()).withStyle(ChatFormatting.YELLOW)
@@ -138,6 +139,7 @@ public final class MenuUtilities {
         String loreLine3 = CobbledMarketConfig.SERVER_CONFIG.menu_shopItemLoreLn3.get();
 
         return new ItemBuilder(stack)
+                .hideAdditional()
                 .addLore(new Component[]{
                         Component.literal(loreLine1).withStyle(ChatFormatting.GRAY),
                         Component.literal(loreLine2).withStyle(ChatFormatting.GOLD),
