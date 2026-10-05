@@ -17,6 +17,7 @@ of items and prices, and can be easily customized to fit the needs of any server
 | `/market`          | Opens the shop directory (or the shop directly if only one is configured) | `CHEAT_COMMANDS_AND_COMMAND_BLOCKS` |
 | `/market <shopId>` | Opens a specific shop (tab-completes configured shop IDs)                 | `CHEAT_COMMANDS_AND_COMMAND_BLOCKS` |
 | `/market reload`   | Reloads shop definitions from `server.toml`                               | `ALL_COMMANDS`                      |
+| `/market debug`    | Extra Debug commands for troubleshooting, or extending                    | `ALL_COMMANDS`                      |
 
 Permission levels can be changed in `config/cobbled_market/permissions.toml`:
 
@@ -24,6 +25,7 @@ Available permission nodes:
 - `cobbled_market.command.market`
 - `cobbled_market.command.market.shop`
 - `cobbled_market.command.market.reload`
+- `cobbled_market.command.market.debug`
 
 ## Cobblemon NPCs
 
