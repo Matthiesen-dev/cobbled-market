@@ -1,8 +1,5 @@
 package dev.matthiesen.cobbled_market.common.config.defs;
 
-import ca.landonjw.gooeylibs2.api.UIManager;
-import ca.landonjw.gooeylibs2.api.button.Button;
-import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import com.cobblemon.mod.common.CobblemonSounds;
 import com.cobblemon.mod.common.util.PlayerExtensionsKt;
 import com.electronwill.nightconfig.core.Config;
@@ -12,6 +9,9 @@ import dev.matthiesen.cobbled_market.common.menu.PurchaseOptionsScreen;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
 import dev.matthiesen.cobbled_market.common.utility.NBTSerializer;
 import dev.matthiesen.matthiesen_core.common.api.economy.EconomyProvider;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.Button;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.ServerButton;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -99,7 +99,7 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
 
     public record Live(ItemStack item, List<PurchaseOption> options, boolean hasOptions) {
         public Button toPurchaseButton(PurchaseOption option) {
-            return GooeyButton.builder()
+            return ServerButton.builder()
                     .display(MenuUtilities.getPurchaseOptionItem(this, option))
                     .onClick(action -> {
                         ServerPlayer sender = action.getPlayer();
@@ -111,12 +111,12 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
         }
 
         public Button toPurchaseOptionButton(ShopConfig.Live shop) {
-            return GooeyButton.builder()
+            return ServerButton.builder()
                     .display(MenuUtilities.getShopEntryItem(this))
                     .onClick(action -> {
                         ServerPlayer sender = action.getPlayer();
                         new SoundsPlayer(CobblemonSounds.PC_CLICK).play(sender);
-                        UIManager.openUIForcefully(sender,
+                        ServerUIManager.openUIForcefully(sender,
                                 new PurchaseOptionsScreen(sender, this, action.getPage(), shop.shopName()).getPage());
                     })
                     .build();

@@ -9,14 +9,13 @@ fabric-api = "0.116.6+1.21.1"
 fabric-kotlin = "1.13.6+kotlin.2.2.20"
 neoforge = "21.1.182"
 kotlin-for-forge = "5.10.0"
-cobblemon = "1.8.0+1.21.1"
+cobblemon = "1.8.2+1.21.1"
 junit = "5.1.0"
 publish = "0.35.0"
-matthiesen_core = "1.2.7"
+matthiesen_core = "1.3.0"
 sponge-mixin = "0.8.5"
 forge-config-api-port = "21.1.6"
 molang = "1.1.20"
-gooeylibs = "3.1.1-1.21.x"
 cobbledollars-fabric = "2.0.0+Beta-6.1-fabric,1.21.1"
 cobbledollars-neoforge = "2.0.0+Beta-6.1-neoforge,1.21.1"
 
@@ -50,9 +49,6 @@ sponge-mixin = { group = "org.spongepowered", name = "mixin", version.ref = "spo
 forge-config-api-port-common = { group = "fuzs.forgeconfigapiport", name = "forgeconfigapiport-common-neoforgeapi", version.ref = "forge-config-api-port" }
 forge-config-api-port-fabric = { group = "fuzs.forgeconfigapiport", name = "forgeconfigapiport-fabric", version.ref = "forge-config-api-port" }
 molang = { module = "com.bedrockk:molang", version.ref = "molang" }
-gooeylibs-api = { group = "ca.landonjw.gooeylibs", name = "api", version.ref = "gooeylibs" }
-gooeylibs-fabric = { group = "ca.landonjw.gooeylibs", name = "fabric", version.ref = "gooeylibs" }
-gooeylibs-neoforge = { group = "ca.landonjw.gooeylibs", name = "neoforge", version.ref = "gooeylibs" }
 cobbledollars-fabric = { group = "maven.modrinth", name = "cobbledollars", version.ref = "cobbledollars-fabric" }
 cobbledollars-neoforge = { group = "maven.modrinth", name = "cobbledollars", version.ref = "cobbledollars-neoforge" }
 
@@ -60,19 +56,19 @@ cobbledollars-neoforge = { group = "maven.modrinth", name = "cobbledollars", ver
 commonCompileOnly = ["sponge-mixin", "forge-config-api-port-common"]
 commonImplementation = []
 commonModCompileOnly = ["cobbledollars-fabric"]
-commonModImplementation = ["gooeylibs-api"]
+commonModImplementation = []
 commonModImplementationNoTransitive = ["cobblemon-common", "matthiesen-core-common"]
 
 fabricCompileOnly = []
 fabricImplementation = []
 fabricModCompileOnly = []
-fabricModRuntimeOnly = ["forge-config-api-port-fabric", "gooeylibs-fabric", "cobbledollars-fabric"]
+fabricModRuntimeOnly = ["forge-config-api-port-fabric", "cobbledollars-fabric"]
 fabricModImplementation = ["fabric-loader", "fabric-api", "fabric-language-kotlin"]
 fabricModImplementationNoTransitive = ["cobblemon-fabric", "matthiesen-core-fabric"]
 
 neoforgeCompileOnly = []
 neoforgeImplementation = []
 neoforgeModCompileOnly = []
-neoforgeModRuntimeOnly = ["gooeylibs-neoforge", "cobbledollars-neoforge"]
+neoforgeModRuntimeOnly = ["cobbledollars-neoforge"]
 neoforgeModImplementation = []
 neoforgeModImplementationNoTransitive = ["cobblemon-neoforge", "matthiesen-core-neoforge"]

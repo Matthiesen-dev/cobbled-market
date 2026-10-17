@@ -1,8 +1,8 @@
 package dev.matthiesen.cobbled_market.common.menu;
 
-import ca.landonjw.gooeylibs2.api.button.Button;
 import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.cobbled_market.common.config.defs.ShopConfig;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 

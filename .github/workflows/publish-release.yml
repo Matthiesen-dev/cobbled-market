@@ -11,7 +11,6 @@ on:
 # The dependencies below correspond to:
 # - Cobblemon (MdwFAVRL)
 # - Matthiesen Core (sqEZOmQo)
-# - GooeyLibs (KzjvlKEN)
 # - Impactor (LdBYVaPS) - Optional
 # - CobbleDollars (s7N7AsqL) - Optional
 ## Fabric Only:
@@ -36,7 +35,6 @@ jobs:
         [
           {"project_id":"MdwFAVRL","dependency_type":"required"},
           {"project_id":"sqEZOmQo","dependency_type":"required"},
-          {"project_id":"KzjvlKEN","dependency_type":"required"},
           {"project_id":"LdBYVaPS","dependency_type":"optional"},
           {"project_id":"s7N7AsqL","dependency_type":"optional"}
         ]

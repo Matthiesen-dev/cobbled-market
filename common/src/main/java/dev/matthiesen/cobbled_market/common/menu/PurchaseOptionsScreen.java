@@ -1,13 +1,12 @@
 package dev.matthiesen.cobbled_market.common.menu;
 
-import ca.landonjw.gooeylibs2.api.UIManager;
-import ca.landonjw.gooeylibs2.api.button.Button;
-import ca.landonjw.gooeylibs2.api.button.GooeyButton;
-import ca.landonjw.gooeylibs2.api.page.Page;
 import com.cobblemon.mod.common.CobblemonSounds;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.config.defs.ShopEntry;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.page.Page;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -41,11 +40,11 @@ public final class PurchaseOptionsScreen extends PaginatedScreen {
 
     @Override
     protected Button getBackButton() {
-        return GooeyButton.builder()
+        return ServerButton.builder()
                 .display(MenuUtilities.getBackToShopItem(shopName))
                 .onClick(action -> {
                     new SoundsPlayer(CobblemonSounds.PC_CLICK).play(action.getPlayer());
-                    UIManager.openUIForcefully(action.getPlayer(), shopPage);
+                    ServerUIManager.openUIForcefully(action.getPlayer(), shopPage);
                 })
                 .build();
     }

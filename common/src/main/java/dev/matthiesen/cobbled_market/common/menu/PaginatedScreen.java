@@ -1,20 +1,15 @@
 package dev.matthiesen.cobbled_market.common.menu;
 
-import ca.landonjw.gooeylibs2.api.button.Button;
-import ca.landonjw.gooeylibs2.api.button.GooeyButton;
-import ca.landonjw.gooeylibs2.api.button.PlaceholderButton;
-import ca.landonjw.gooeylibs2.api.button.linked.LinkType;
-import ca.landonjw.gooeylibs2.api.button.linked.LinkedPageButton;
-import ca.landonjw.gooeylibs2.api.helpers.PaginationHelper;
-import ca.landonjw.gooeylibs2.api.page.LinkedPage;
-import ca.landonjw.gooeylibs2.api.page.Page;
-import ca.landonjw.gooeylibs2.api.template.slot.TemplateSlotDelegate;
-import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
 import com.cobblemon.mod.common.CobblemonSounds;
 import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
-import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
-import dev.matthiesen.cobbled_market.common.config.ServerConfig;
+import dev.matthiesen.cobbled_market.common.config.*;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.linked.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.helpers.PaginationHelper;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.page.*;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.template.slot.TemplateSlotDelegate;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.template.types.ChestTemplate;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -61,13 +56,13 @@ public abstract class PaginatedScreen {
             int balance = ecoProvider.getBalance(player, config.currencyId.get());
             balanceItem = MenuUtilities.getCurrencyItemStack(balance);
         }
-        return GooeyButton.builder()
+        return ServerButton.builder()
                 .display(balanceItem)
                 .build();
     }
 
     public Page getPage() {
-        Button frame = GooeyButton.builder()
+        Button frame = ServerButton.builder()
                 .display(MenuUtilities.getFrameItem())
                 .build();
 
@@ -105,7 +100,7 @@ public abstract class PaginatedScreen {
     }
 
     private Button getInfoButton(int currentPage, int totalPages) {
-        return GooeyButton.builder()
+        return ServerButton.builder()
                 .display(MenuUtilities.getPageItem(currentPage, totalPages))
                 .build();
     }

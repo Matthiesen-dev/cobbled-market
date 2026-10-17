@@ -1,8 +1,8 @@
 package dev.matthiesen.cobbled_market.common.menu;
 
-import ca.landonjw.gooeylibs2.api.UIManager;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.config.defs.ShopConfig;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,9 +26,9 @@ public final class MarketMenus {
             return false;
         }
         if (shops.size() == 1) {
-            UIManager.openUIForcefully(player, new ShopScreen(player, shops.getFirst(), false).getPage());
+            ServerUIManager.openUIForcefully(player, new ShopScreen(player, shops.getFirst(), false).getPage());
         } else {
-            UIManager.openUIForcefully(player, new ShopDirectoryScreen(player, shops).getPage());
+            ServerUIManager.openUIForcefully(player, new ShopDirectoryScreen(player, shops).getPage());
         }
         return true;
     }
@@ -41,7 +41,7 @@ public final class MarketMenus {
             player.sendSystemMessage(Component.literal(errorMessage).withStyle(ChatFormatting.RED));
             return false;
         }
-        UIManager.openUIForcefully(player, new ShopScreen(player, shop, showBackButton).getPage());
+        ServerUIManager.openUIForcefully(player, new ShopScreen(player, shop, showBackButton).getPage());
         return true;
     }
 }
