@@ -40,6 +40,11 @@ public final class CobbledMarketCommon extends AbstractCommonMod {
 
         PlatformEvents.CONFIG_RELOADING(MOD_ID).subscribe(event -> CobbledMarketConfig.invalidateCachedShopConfigs());
         PlatformEvents.SERVER_STOPPED.subscribe(event -> CobbledMarketConfig.invalidateCachedShopConfigs());
+        PlatformEvents.SERVER_STARTED.subscribe(event -> {
+            createInfoLog("Loading and validating shops...");
+            var shops = CobbledMarketConfig.getShopConfigs();
+            createInfoLog("Loaded and validated " + shops.size() + " shops.");
+        });
 
         MolangExtensions.register();
         CobbleDollarsCompat.register();
