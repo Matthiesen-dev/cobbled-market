@@ -32,6 +32,10 @@ public record ShopConfig(
 
     public static ShopConfig deserialize(Config config) {
         String shopId = config.get("shopId");
+        return deserialize(config, shopId);
+    }
+
+    public static ShopConfig deserialize(Config config, String shopId) {
         String shopName = config.get("shopName");
         String shopIcon = config.getOrElse("shopIcon", DEFAULT_SHOP_ICON);
         List<? extends Config> entryConfigs = config.get("entries");
@@ -44,8 +48,14 @@ public record ShopConfig(
     }
 
     public static boolean isValid(Config config) {
-        if (!(config.get("shopId") instanceof String shopId) || shopId.isEmpty()) {
-            return false;
+        return isValid(config, true);
+    }
+
+    public static boolean isValid(Config config, boolean checkShopId) {
+        if (checkShopId) {
+            if (!(config.get("shopId") instanceof String shopId) || shopId.isEmpty()) {
+                return false;
+            }
         }
 
         if (!(config.get("shopName") instanceof String shopName) || shopName.isEmpty()) {
