@@ -76,6 +76,33 @@ automatically from this list:
         quantity = 64
 ```
 
+### Dedicated Shop Files
+
+Shops can also be defined in their own TOML files in `config/cobbled_market/shops/`. Each file must contain a single shop definition, and the filename (without extension) 
+is used as the shop ID. For example, a file named `example_shop.toml` would define a shop with the ID `example_shop`.
+
+An example shop file
+
+```toml
+shopName = "Example Shop"
+shopIcon = "minecraft:chest"
+    [[entries]]
+        itemId = "minecraft:stone"
+        price = 10
+        quantity = 64
+    [[entries]]
+        itemId = "minecraft:dirt"
+    [[entries.options]]
+        price = 1
+        quantity = 1
+    [[entries.options]]
+        price = 15
+        quantity = 32
+    [[entries.options]]
+        price = 30
+        quantity = 64
+```
+
 Clicking an item in a shop purchases it immediately using the configured currency provider.
 
 ### Item strings
