@@ -92,15 +92,15 @@ shopIcon = "minecraft:chest"
         quantity = 64
     [[entries]]
         itemId = "minecraft:dirt"
-    [[entries.options]]
-        price = 1
-        quantity = 1
-    [[entries.options]]
-        price = 15
-        quantity = 32
-    [[entries.options]]
-        price = 30
-        quantity = 64
+        [[entries.options]]
+            price = 1
+            quantity = 1
+        [[entries.options]]
+            price = 15
+            quantity = 32
+        [[entries.options]]
+            price = 30
+            quantity = 64
 ```
 
 Clicking an item in a shop purchases it immediately using the configured currency provider.
