@@ -8,9 +8,9 @@ import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.config.defs.ShopConfig;
 import dev.matthiesen.cobbled_market.common.menu.MarketMenus;
 import dev.matthiesen.cobbled_market.common.registry.PermissionRegistry;
-import dev.matthiesen.cobbled_market.common.utility.NBTSerializer;
 import dev.matthiesen.matthiesen_core.common.api.command.CoreCommand;
 import dev.matthiesen.matthiesen_core.common.utility.commands.CommandBuilder;
+import dev.matthiesen.matthiesen_core.common.utility.item.ItemDecoder;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -67,7 +67,7 @@ public final class MarketCommand implements CoreCommand {
     private int debugMainHand(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         var mainHandItem = player.getMainHandItem();
-        String itemString = NBTSerializer.serialize(mainHandItem);
+        String itemString = ItemDecoder.serialize(mainHandItem);
         Component copyable = Component.literal(itemString).withStyle(style -> style
                 .withColor(ChatFormatting.AQUA)
                 .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, itemString))

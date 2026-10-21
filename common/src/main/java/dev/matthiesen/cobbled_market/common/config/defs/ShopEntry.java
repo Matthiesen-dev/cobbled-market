@@ -7,12 +7,11 @@ import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.menu.PurchaseOptionsScreen;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
-import dev.matthiesen.cobbled_market.common.utility.NBTSerializer;
 import dev.matthiesen.matthiesen_core.common.api.economy.EconomyProvider;
 import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
-import dev.matthiesen.matthiesen_core.common.api.server_menu.button.Button;
-import dev.matthiesen.matthiesen_core.common.api.server_menu.button.ServerButton;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.*;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
+import dev.matthiesen.matthiesen_core.common.utility.item.ItemDecoder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -90,7 +89,7 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
     }
 
     public Live toLiveShopEntry() {
-        ItemStack item = NBTSerializer.stringToItemStack(itemId);
+        ItemStack item = ItemDecoder.stringToItemStack(itemId);
         if (item.isEmpty() || item.getItem() == Items.AIR) {
             throw new IllegalArgumentException("Invalid item: " + itemId);
         }
