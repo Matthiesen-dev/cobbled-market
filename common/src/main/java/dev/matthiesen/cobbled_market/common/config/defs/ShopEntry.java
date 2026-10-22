@@ -49,7 +49,7 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
     }
 
     public static ShopEntry deserialize(Config config) {
-        if (!isValid(config)) {
+        if (isNotValid(config)) {
             throw new IllegalArgumentException("Invalid shop entry: specify quantity/price or a nonempty options list");
         }
         String itemRaw = config.get("itemId");
@@ -60,20 +60,20 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
         return new ShopEntry(itemRaw, List.of(PurchaseOption.deserialize(config)), false);
     }
 
-    public static boolean isValid(Config config) {
+    public static boolean isNotValid(Config config) {
         if (!(config.get("itemId") instanceof String itemRaw) || itemRaw.isEmpty()) {
-            return false;
+            return true;
         }
 
         if (config.contains("options")) {
             if (config.contains("quantity") || config.contains("price")
                     || !(config.get("options") instanceof List<?> optionConfigs) || optionConfigs.isEmpty()) {
-                return false;
+                return true;
             }
-            return optionConfigs.stream().allMatch(option -> option instanceof Config optionConfig
+            return !optionConfigs.stream().allMatch(option -> option instanceof Config optionConfig
                     && PurchaseOption.isValid(optionConfig));
         }
-        return PurchaseOption.isValid(config);
+        return !PurchaseOption.isValid(config);
     }
 
     public Config serialize() {

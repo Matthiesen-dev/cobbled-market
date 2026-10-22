@@ -71,7 +71,7 @@ public record ShopConfig(
         }
 
         for (Object entryConfig : entryConfigs) {
-            if (!(entryConfig instanceof Config entry) || !ShopEntry.isValid(entry)) {
+            if (!(entryConfig instanceof Config entry) || ShopEntry.isNotValid(entry)) {
                 return false;
             }
         }
