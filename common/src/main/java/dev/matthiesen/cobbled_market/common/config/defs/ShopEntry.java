@@ -7,12 +7,11 @@ import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.menu.PurchaseOptionsScreen;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
-import dev.matthiesen.cobbled_market.common.utility.NBTSerializer;
 import dev.matthiesen.matthiesen_core.common.api.economy.EconomyProvider;
 import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
-import dev.matthiesen.matthiesen_core.common.api.server_menu.button.Button;
-import dev.matthiesen.matthiesen_core.common.api.server_menu.button.ServerButton;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.*;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
+import dev.matthiesen.matthiesen_core.common.utility.item.ItemDecoder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -50,7 +49,7 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
     }
 
     public static ShopEntry deserialize(Config config) {
-        if (!isValid(config)) {
+        if (isNotValid(config)) {
             throw new IllegalArgumentException("Invalid shop entry: specify quantity/price or a nonempty options list");
         }
         String itemRaw = config.get("itemId");
@@ -61,20 +60,20 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
         return new ShopEntry(itemRaw, List.of(PurchaseOption.deserialize(config)), false);
     }
 
-    public static boolean isValid(Config config) {
+    public static boolean isNotValid(Config config) {
         if (!(config.get("itemId") instanceof String itemRaw) || itemRaw.isEmpty()) {
-            return false;
+            return true;
         }
 
         if (config.contains("options")) {
             if (config.contains("quantity") || config.contains("price")
                     || !(config.get("options") instanceof List<?> optionConfigs) || optionConfigs.isEmpty()) {
-                return false;
+                return true;
             }
-            return optionConfigs.stream().allMatch(option -> option instanceof Config optionConfig
+            return !optionConfigs.stream().allMatch(option -> option instanceof Config optionConfig
                     && PurchaseOption.isValid(optionConfig));
         }
-        return PurchaseOption.isValid(config);
+        return !PurchaseOption.isValid(config);
     }
 
     public Config serialize() {
@@ -90,7 +89,7 @@ public record ShopEntry(String itemId, List<PurchaseOption> options, boolean has
     }
 
     public Live toLiveShopEntry() {
-        ItemStack item = NBTSerializer.stringToItemStack(itemId);
+        ItemStack item = ItemDecoder.stringToItemStack(itemId);
         if (item.isEmpty() || item.getItem() == Items.AIR) {
             throw new IllegalArgumentException("Invalid item: " + itemId);
         }

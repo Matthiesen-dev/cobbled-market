@@ -4,11 +4,10 @@ import com.cobblemon.mod.common.CobblemonSounds;
 import com.electronwill.nightconfig.core.Config;
 import dev.matthiesen.cobbled_market.common.menu.ShopScreen;
 import dev.matthiesen.cobbled_market.common.utility.MenuUtilities;
-import dev.matthiesen.cobbled_market.common.utility.NBTSerializer;
 import dev.matthiesen.matthiesen_core.common.api.server_menu.ServerUIManager;
-import dev.matthiesen.matthiesen_core.common.api.server_menu.button.Button;
-import dev.matthiesen.matthiesen_core.common.api.server_menu.button.ServerButton;
+import dev.matthiesen.matthiesen_core.common.api.server_menu.button.*;
 import dev.matthiesen.matthiesen_core.common.utility.SoundsPlayer;
+import dev.matthiesen.matthiesen_core.common.utility.item.ItemDecoder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -72,7 +71,7 @@ public record ShopConfig(
         }
 
         for (Object entryConfig : entryConfigs) {
-            if (!(entryConfig instanceof Config entry) || !ShopEntry.isValid(entry)) {
+            if (!(entryConfig instanceof Config entry) || ShopEntry.isNotValid(entry)) {
                 return false;
             }
         }
@@ -96,7 +95,7 @@ public record ShopConfig(
         List<ShopEntry.Live> liveEntries = this.entries.stream()
                 .map(ShopEntry::toLiveShopEntry)
                 .toList();
-        ItemStack icon = NBTSerializer.stringToItemStack(this.shopIcon);
+        ItemStack icon = ItemDecoder.stringToItemStack(this.shopIcon);
         if (icon.isEmpty() || icon.getItem() == Items.AIR) {
             icon = new ItemStack(Items.CHEST);
         }
