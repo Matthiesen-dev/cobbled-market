@@ -40,7 +40,8 @@ public final class CobbledMarketConfig {
             String shopId = entry.getKey();
             FileConfig config = entry.getValue();
             try {
-                shops.add(ShopConfig.deserialize(config, shopId).toLiveShop());
+                ShopConfig.Live liveShop = ShopConfig.deserialize(config, shopId).toLiveShop();
+                shops.add(liveShop);
             } catch (Exception e) {
                 CobbledMarketCommon.INSTANCE.createErrorLog(
                         "Skipping invalid shop configuration '" + shopId + "': " + e.getMessage(), e
