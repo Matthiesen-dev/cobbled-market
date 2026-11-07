@@ -13,13 +13,6 @@ plugins {
     id("idea")
 }
 
-idea {
-    module {
-        isDownloadJavadoc = true
-        isDownloadSources = true
-    }
-}
-
 val resolvedModVersion = providers.environmentVariable("RELEASE_VERSION")
     .orElse(providers.gradleProperty("mod_version"))
     .orNull
@@ -69,6 +62,8 @@ repositories {
             includeGroup("maven.modrinth")
         }
     }
+    maven("https://repo.faststats.dev/releases")
+    maven("https://repo.faststats.dev/snapshots")
 }
 
 dependencies {

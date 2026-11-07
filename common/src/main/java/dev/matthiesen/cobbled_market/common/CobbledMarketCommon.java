@@ -1,10 +1,10 @@
 package dev.matthiesen.cobbled_market.common;
 
+import dev.faststats.Token;
 import dev.matthiesen.cobbled_market.common.command.MarketCommand;
 import dev.matthiesen.cobbled_market.common.config.CobbledMarketConfig;
 import dev.matthiesen.cobbled_market.common.economy_providers.CobbleDollarsCompat;
 import dev.matthiesen.cobbled_market.common.registry.*;
-import dev.matthiesen.libs.faststats.Token;
 import dev.matthiesen.matthiesen_core.common.AbstractCommonMod;
 import dev.matthiesen.matthiesen_core.common.api.events.PlatformEvents;
 import dev.matthiesen.matthiesen_core.common.api.platform.loader.ModConfigType;
@@ -25,15 +25,11 @@ public final class CobbledMarketCommon extends AbstractCommonMod {
         return METRICS_TOKEN;
     }
 
-    private static String configPath(String path) {
-        return "cobbled_market/" + path + ".toml";
-    }
-
     public void initialize() {
         super.initialize();
 
-        registerModConfig(MOD_ID, ModConfigType.SERVER, CobbledMarketConfig.SERVER_SPEC, configPath("server"));
-        registerModConfig(MOD_ID, ModConfigType.STARTUP, CobbledMarketConfig.PERMISSIONS_SPEC, configPath("permissions"));
+        registerModConfig(MOD_ID, ModConfigType.SERVER, CobbledMarketConfig.SERVER_SPEC, modConfigPath("server"));
+        registerModConfig(MOD_ID, ModConfigType.STARTUP, CobbledMarketConfig.PERMISSIONS_SPEC, modConfigPath("permissions"));
 
         PermissionRegistry.init();
         getCommandsRegistryManager().registerCommand(MarketCommand.CMD);

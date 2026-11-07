@@ -2,7 +2,7 @@ package dev.matthiesen.cobbled_market.common.economy_providers;
 
 import dev.matthiesen.cobbled_market.common.CobbledMarketCommon;
 import dev.matthiesen.matthiesen_core.common.api.economy.EconomyProvider;
-import dev.matthiesen.matthiesen_core.common.utility.player_data.ServerUser;
+import dev.matthiesen.matthiesen_core.common.core.data.ServerUser;
 import fr.harmex.cobbledollars.common.utils.extensions.PlayerExtensionKt;
 
 import java.math.BigDecimal;
